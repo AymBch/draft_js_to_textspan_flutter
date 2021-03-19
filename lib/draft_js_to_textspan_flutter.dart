@@ -21,6 +21,7 @@ class DraftJSFlutter extends StatelessWidget {
   List<TextSpan> getTextSpans() {
     List<TextSpan> list = List();
     if (map != null) {
+      print(map);
       DraftJsObject draftJsObject = DraftJsObject.fromJson(map);
       if (draftJsObject != null && draftJsObject.blocks != null) {
         for (int blockIndex = 0;
