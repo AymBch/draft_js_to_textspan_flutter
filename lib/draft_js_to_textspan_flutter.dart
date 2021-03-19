@@ -31,6 +31,7 @@ class DraftJSFlutter extends StatelessWidget {
               : 0;
           print('bloc index' + blockIndex.toString());
           print('text length:' + textLength.toString());
+          print('block keyy :' + draftJsObject.blocks[blockIndex].key);
 
           for (int textIndex = 0; textIndex < textLength; textIndex++) {
             print('TextIndex: ' + textIndex.toString());
