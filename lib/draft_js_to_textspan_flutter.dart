@@ -104,10 +104,10 @@ class DraftJSFlutter extends StatelessWidget {
               print('bullet block : ' +
                   draftJsObject.blocks[blockIndex].toString());
               list.add(TextSpan(
-                text: "•",
+                text: "• ",
                 recognizer: recognizer,
                 style: TextStyle(
-                    fontSize: fontSize,
+                    fontSize: 15.0,
                     color: textColor,
                     fontStyle: textFontStyle,
                     fontWeight: textFontWeight,
