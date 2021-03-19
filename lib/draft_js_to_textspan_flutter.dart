@@ -29,8 +29,11 @@ class DraftJSFlutter extends StatelessWidget {
           int textLength = draftJsObject.blocks[blockIndex].text != null
               ? draftJsObject.blocks[blockIndex].text.runes.length
               : 0;
+          print('bloc index' + blockIndex.toString());
+          print('text length:' + textLength.toString());
 
           for (int textIndex = 0; textIndex < textLength; textIndex++) {
+            print('TextIndex: ' + textIndex.toString());
             Color textColor = Colors.black;
             FontWeight textFontWeight = FontWeight.w400;
             FontStyle textFontStyle = FontStyle.normal;
@@ -43,6 +46,11 @@ class DraftJSFlutter extends StatelessWidget {
               if (draftJsObject
                   .blocks[blockIndex].inlineStyleRanges[inlineStyleIndex]
                   .contains(textIndex)) {
+                print('inlineStyleIndex : ' + inlineStyleIndex.toString());
+                print('inilneStyleRange : ' +
+                    draftJsObject
+                        .blocks[blockIndex].inlineStyleRanges[inlineStyleIndex]
+                        .toString());
                 print(draftJsObject.blocks[blockIndex]
                     .inlineStyleRanges[inlineStyleIndex].style);
                 switch (draftJsObject.blocks[blockIndex]
@@ -70,6 +78,7 @@ class DraftJSFlutter extends StatelessWidget {
               if (draftJsObject
                   .blocks[blockIndex].entityRanges[entityRangeIndex]
                   .contains(textIndex)) {
+                print('entityRangeIndex : ' + entityRangeIndex.toString());
                 textColor = Colors.blue;
                 decoration = TextDecoration.underline;
                 recognizer = TapGestureRecognizer()
@@ -82,7 +91,9 @@ class DraftJSFlutter extends StatelessWidget {
                   };
               }
             }
-
+            print('text to add :' +
+                String.fromCharCode(draftJsObject.blocks[blockIndex].text.runes
+                    .toList()[textIndex]));
             list.add(
               TextSpan(
                 text: String.fromCharCode(draftJsObject
@@ -99,6 +110,7 @@ class DraftJSFlutter extends StatelessWidget {
             );
           }
 
+          print('add the new line');
           list.add(TextSpan(
             text: " \n",
           ));
@@ -108,6 +120,8 @@ class DraftJSFlutter extends StatelessWidget {
           print('bloc object : ' + draftJsObject.blocks[blockIndex].toString());
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item") {
             print('bullet');
+            print('bullet block : ' +
+                draftJsObject.blocks[blockIndex].toString());
             list.add(TextSpan(
               text: "•",
             ));
