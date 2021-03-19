@@ -109,7 +109,7 @@ class DraftJSFlutter extends StatelessWidget {
               ),
             );
           }
-
+          print('block key:' + draftJsObject.blocks[blockIndex].key);
           print('add the new line');
           list.add(TextSpan(
             text: " \n",
