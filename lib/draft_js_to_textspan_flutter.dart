@@ -114,6 +114,17 @@ class DraftJSFlutter extends StatelessWidget {
                     decoration: decoration),
               ));
               currentIndex = blockIndex;
+            } else if (blockIndex == currentIndex) {
+              list.add(TextSpan(
+                text: "  ",
+                recognizer: recognizer,
+                style: TextStyle(
+                    fontSize: fontSize,
+                    color: textColor,
+                    fontStyle: textFontStyle,
+                    fontWeight: textFontWeight,
+                    decoration: decoration),
+              ));
             }
             list.add(
               TextSpan(
