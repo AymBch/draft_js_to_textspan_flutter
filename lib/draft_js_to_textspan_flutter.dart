@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 class DraftJSFlutter extends StatelessWidget {
   final Map<String, dynamic> map;
   final double fontSize;
-  DraftJSFlutter(this.map,this.fontSize);
+  DraftJSFlutter(this.map, this.fontSize);
 
   _launchURL(String link) async {
     if (await canLaunch(link)) {
@@ -24,8 +24,8 @@ class DraftJSFlutter extends StatelessWidget {
       DraftJsObject draftJsObject = DraftJsObject.fromJson(map);
       if (draftJsObject != null && draftJsObject.blocks != null) {
         for (int blockIndex = 0;
-        blockIndex < draftJsObject.blocks.length;
-        blockIndex++) {
+            blockIndex < draftJsObject.blocks.length;
+            blockIndex++) {
           int textLength = draftJsObject.blocks[blockIndex].text != null
               ? draftJsObject.blocks[blockIndex].text.runes.length
               : 0;
@@ -36,9 +36,9 @@ class DraftJSFlutter extends StatelessWidget {
             TextDecoration decoration = TextDecoration.none;
             TapGestureRecognizer recognizer;
             for (int inlineStyleIndex = 0;
-            inlineStyleIndex <
-                draftJsObject.blocks[blockIndex].inlineStyleRanges.length;
-            inlineStyleIndex++) {
+                inlineStyleIndex <
+                    draftJsObject.blocks[blockIndex].inlineStyleRanges.length;
+                inlineStyleIndex++) {
               if (draftJsObject
                   .blocks[blockIndex].inlineStyleRanges[inlineStyleIndex]
                   .contains(textIndex)) {
@@ -62,9 +62,9 @@ class DraftJSFlutter extends StatelessWidget {
               }
             }
             for (int entityRangeIndex = 0;
-            entityRangeIndex <
-                draftJsObject.blocks[blockIndex].entityRanges.length;
-            entityRangeIndex++) {
+                entityRangeIndex <
+                    draftJsObject.blocks[blockIndex].entityRanges.length;
+                entityRangeIndex++) {
               if (draftJsObject
                   .blocks[blockIndex].entityRanges[entityRangeIndex]
                   .contains(textIndex)) {
@@ -80,13 +80,24 @@ class DraftJSFlutter extends StatelessWidget {
                   };
               }
             }
+            // add bullet points .........................................
+            final style = draftJsObject.blocks[blockIndex].type;
+            print('style type : ' + style.toString());
+            if (draftJsObject.blocks[blockIndex].type ==
+                "unordered-list-item") {
+              list.add(TextSpan(
+                text: "•",
+              ));
+            }
+
+            // ------------------------------------------------------------
             list.add(TextSpan(
                 text: String.fromCharCode(draftJsObject
                     .blocks[blockIndex].text.runes
                     .toList()[textIndex]),
                 recognizer: recognizer,
                 style: TextStyle(
-                  fontSize: fontSize,
+                    fontSize: fontSize,
                     color: textColor,
                     fontStyle: textFontStyle,
                     fontWeight: textFontWeight,
