@@ -29,6 +29,16 @@ class DraftJSFlutter extends StatelessWidget {
           int textLength = draftJsObject.blocks[blockIndex].text != null
               ? draftJsObject.blocks[blockIndex].text.runes.length
               : 0;
+          // add bullet points .........................................
+          final style = draftJsObject.blocks[blockIndex].type;
+          print('style type : ' + style.toString());
+          if (draftJsObject.blocks[blockIndex].type == "unordered-list-item") {
+            list.add(TextSpan(
+              text: "•",
+            ));
+          }
+
+          // ------------------------------------------------------------
           for (int textIndex = 0; textIndex < textLength; textIndex++) {
             Color textColor = Colors.black;
             FontWeight textFontWeight = FontWeight.w400;
@@ -61,24 +71,7 @@ class DraftJSFlutter extends StatelessWidget {
                 }
               }
             }
-            // add bullet points .........................................
-            final style = draftJsObject.blocks[blockIndex].type;
-            print('style type : ' + style.toString());
-            if (draftJsObject.blocks[blockIndex].type ==
-                "unordered-list-item") {
-              list.add(TextSpan(
-                text: "•",
-                recognizer: recognizer,
-                style: TextStyle(
-                    fontSize: fontSize,
-                    color: textColor,
-                    fontStyle: textFontStyle,
-                    fontWeight: textFontWeight,
-                    decoration: decoration),
-              ));
-            }
 
-            // ------------------------------------------------------------
             for (int entityRangeIndex = 0;
                 entityRangeIndex <
                     draftJsObject.blocks[blockIndex].entityRanges.length;
