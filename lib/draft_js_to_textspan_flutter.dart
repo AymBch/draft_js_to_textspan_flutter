@@ -23,6 +23,7 @@ class DraftJSFlutter extends StatelessWidget {
     if (map != null) {
       print(map);
       DraftJsObject draftJsObject = DraftJsObject.fromJson(map);
+      int currentIndex = 0;
       if (draftJsObject != null && draftJsObject.blocks != null) {
         for (int blockIndex = 0;
             blockIndex < draftJsObject.blocks.length;
@@ -96,6 +97,17 @@ class DraftJSFlutter extends StatelessWidget {
             print('text to add :' +
                 String.fromCharCode(draftJsObject.blocks[blockIndex].text.runes
                     .toList()[textIndex]));
+            if (draftJsObject.blocks[blockIndex].type ==
+                    "unordered-list-item" &&
+                currentIndex != blockIndex) {
+              print('bullet');
+              print('bullet block : ' +
+                  draftJsObject.blocks[blockIndex].toString());
+              list.add(TextSpan(
+                text: "•",
+              ));
+              currentIndex = blockIndex;
+            }
             list.add(
               TextSpan(
                 text: String.fromCharCode(draftJsObject
@@ -118,17 +130,17 @@ class DraftJSFlutter extends StatelessWidget {
             text: " \n",
           ));
           // add bullet points .........................................
-          final style = draftJsObject.blocks[blockIndex].type;
-          print('style type : ' + style.toString());
-          print('bloc object : ' + draftJsObject.blocks[blockIndex].toString());
-          if (draftJsObject.blocks[blockIndex].type == "unordered-list-item") {
-            print('bullet');
-            print('bullet block : ' +
-                draftJsObject.blocks[blockIndex].toString());
-            list.add(TextSpan(
-              text: "•",
-            ));
-          }
+          // final style = draftJsObject.blocks[blockIndex].type;
+          // print('style type : ' + style.toString());
+          // print('bloc object : ' + draftJsObject.blocks[blockIndex].toString());
+          // if (draftJsObject.blocks[blockIndex].type == "unordered-list-item") {
+          //   print('bullet');
+          //   print('bullet block : ' +
+          //       draftJsObject.blocks[blockIndex].toString());
+          //   list.add(TextSpan(
+          //     text: "•",
+          //   ));
+          // }
 
           // ------------------------------------------------------------
         }
