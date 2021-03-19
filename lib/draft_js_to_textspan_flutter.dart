@@ -105,6 +105,13 @@ class DraftJSFlutter extends StatelessWidget {
                   draftJsObject.blocks[blockIndex].toString());
               list.add(TextSpan(
                 text: "•",
+                recognizer: recognizer,
+                style: TextStyle(
+                    fontSize: fontSize,
+                    color: textColor,
+                    fontStyle: textFontStyle,
+                    fontWeight: textFontWeight,
+                    decoration: decoration),
               ));
               currentIndex = blockIndex;
             }
