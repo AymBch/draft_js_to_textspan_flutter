@@ -105,7 +105,9 @@ class DraftJSFlutter extends StatelessWidget {
           // add bullet points .........................................
           final style = draftJsObject.blocks[blockIndex].type;
           print('style type : ' + style.toString());
+          print('bloc object : ' + draftJsObject.blocks[blockIndex].toString());
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item") {
+            print('bullet');
             list.add(TextSpan(
               text: "•",
             ));
