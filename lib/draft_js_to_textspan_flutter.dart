@@ -61,6 +61,24 @@ class DraftJSFlutter extends StatelessWidget {
                 }
               }
             }
+            // add bullet points .........................................
+            final style = draftJsObject.blocks[blockIndex].type;
+            print('style type : ' + style.toString());
+            if (draftJsObject.blocks[blockIndex].type ==
+                "unordered-list-item") {
+              list.add(TextSpan(
+                text: "•",
+                recognizer: recognizer,
+                style: TextStyle(
+                    fontSize: fontSize,
+                    color: textColor,
+                    fontStyle: textFontStyle,
+                    fontWeight: textFontWeight,
+                    decoration: decoration),
+              ));
+            }
+
+            // ------------------------------------------------------------
             for (int entityRangeIndex = 0;
                 entityRangeIndex <
                     draftJsObject.blocks[blockIndex].entityRanges.length;
@@ -80,18 +98,9 @@ class DraftJSFlutter extends StatelessWidget {
                   };
               }
             }
-            // add bullet points .........................................
-            final style = draftJsObject.blocks[blockIndex].type;
-            print('style type : ' + style.toString());
-            if (draftJsObject.blocks[blockIndex].type ==
-                "unordered-list-item") {
-              list.add(TextSpan(
-                text: "•",
-              ));
-            }
 
-            // ------------------------------------------------------------
-            list.add(TextSpan(
+            list.add(
+              TextSpan(
                 text: String.fromCharCode(draftJsObject
                     .blocks[blockIndex].text.runes
                     .toList()[textIndex]),
@@ -101,7 +110,9 @@ class DraftJSFlutter extends StatelessWidget {
                     color: textColor,
                     fontStyle: textFontStyle,
                     fontWeight: textFontWeight,
-                    decoration: decoration)));
+                    decoration: decoration),
+              ),
+            );
           }
 
           list.add(TextSpan(
