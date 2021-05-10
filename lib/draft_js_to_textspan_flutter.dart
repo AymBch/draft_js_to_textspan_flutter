@@ -20,6 +20,8 @@ class DraftJSFlutter extends StatelessWidget {
 
   List<TextSpan> getTextSpans() {
     List<TextSpan> list = List();
+    final brightness = MediaQueryData.fromWindow(WidgetsBinding.instance.window)
+        .platformBrightness;
     if (map != null) {
       print(map);
       DraftJsObject draftJsObject = DraftJsObject.fromJson(map);
@@ -34,7 +36,8 @@ class DraftJSFlutter extends StatelessWidget {
 
           for (int textIndex = 0; textIndex < textLength; textIndex++) {
             print('TextIndex: ' + textIndex.toString());
-            Color textColor = Colors.black;
+            Color textColor =
+                brightness == Brightness.dark ? Colors.white : Colors.black;
             FontWeight textFontWeight = FontWeight.w400;
             FontStyle textFontStyle = FontStyle.normal;
             TextDecoration decoration = TextDecoration.none;
