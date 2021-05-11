@@ -8,7 +8,13 @@ import 'package:url_launcher/url_launcher.dart';
 class DraftJSFlutter extends StatelessWidget {
   final Map<String, dynamic> map;
   final double fontSize;
-  DraftJSFlutter(this.map, this.fontSize);
+  Color color;
+  DraftJSFlutter(this.map, this.fontSize, this.color);
+
+  Color get getColor => color;
+  set setColor(Color color) {
+    this.color = color;
+  }
 
   _launchURL(String link) async {
     if (await canLaunch(link)) {
@@ -36,8 +42,7 @@ class DraftJSFlutter extends StatelessWidget {
 
           for (int textIndex = 0; textIndex < textLength; textIndex++) {
             print('TextIndex: ' + textIndex.toString());
-            Color textColor =
-                brightness == Brightness.dark ? Colors.white : Colors.black;
+            Color textColor = color;
             FontWeight textFontWeight = FontWeight.w400;
             FontStyle textFontStyle = FontStyle.normal;
             TextDecoration decoration = TextDecoration.none;
