@@ -174,17 +174,24 @@ class DraftJSFlutter extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        "• ",
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            color: textColor,
-                            fontStyle: textFontStyle,
-                            fontWeight: FontWeight.bold,
-                            decoration: decoration),
-                      ),
+                    height: double.infinity,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          left: 0,
+                          child: Text(
+                            "• ",
+                            style: TextStyle(
+                                fontSize: 15.0,
+                                color: textColor,
+                                fontStyle: textFontStyle,
+                                fontWeight: FontWeight.bold,
+                                decoration: decoration),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
