@@ -159,16 +159,18 @@ class DraftJSFlutter extends StatelessWidget {
                       fontWeight: textFontWeight,
                       decoration: decoration),
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: text,
-                    recognizer: recognizer,
-                    style: TextStyle(
-                        fontSize: fontSize,
-                        color: textColor,
-                        fontStyle: textFontStyle,
-                        fontWeight: textFontWeight,
-                        decoration: decoration),
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: text,
+                      recognizer: recognizer,
+                      style: TextStyle(
+                          fontSize: fontSize,
+                          color: textColor,
+                          fontStyle: textFontStyle,
+                          fontWeight: textFontWeight,
+                          decoration: decoration),
+                    ),
                   ),
                 ),
               ],
