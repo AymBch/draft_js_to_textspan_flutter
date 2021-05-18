@@ -5,14 +5,17 @@ class _Block {
   int depth;
   List<_InlineStyleRange> inlineStyleRanges;
   List<_EntityRange> entityRanges;
+  _Data data;
 
-  _Block(
-      {this.key,
-      this.text,
-      this.type,
-      this.depth,
-      this.inlineStyleRanges,
-      this.entityRanges});
+  _Block({
+    this.key,
+    this.text,
+    this.type,
+    this.depth,
+    this.inlineStyleRanges,
+    this.entityRanges,
+    this.data,
+  });
 
   static List<_Block> getList(List<dynamic> map) {
     List<_Block> blocks = List();
@@ -23,16 +26,18 @@ class _Block {
   }
 
   factory _Block.fromJson(Map<String, dynamic> map) => _Block(
-      key: map["key"],
-      text: map["text"],
-      type: map["type"],
-      depth: map["depth"] ?? 0,
-      inlineStyleRanges: map["inlineStyleRanges"] == null
-          ? null
-          : _InlineStyleRange.getList(map["inlineStyleRanges"]),
-      entityRanges: map["entityRanges"] == null
-          ? null
-          : _EntityRange.getList(map["entityRanges"]));
+        key: map["key"],
+        text: map["text"],
+        type: map["type"],
+        depth: map["depth"] ?? 0,
+        inlineStyleRanges: map["inlineStyleRanges"] == null
+            ? null
+            : _InlineStyleRange.getList(map["inlineStyleRanges"]),
+        entityRanges: map["entityRanges"] == null
+            ? null
+            : _EntityRange.getList(map["entityRanges"]),
+        data: map["text-align"],
+      );
 }
 
 class _InlineStyleRange {
@@ -40,12 +45,13 @@ class _InlineStyleRange {
   int length;
   String style;
 
-  bool contains(int index){
-    if((offset<=index) && (index<(offset+length))) {
-     return true;
+  bool contains(int index) {
+    if ((offset <= index) && (index < (offset + length))) {
+      return true;
     }
-     return false;
+    return false;
   }
+
   _InlineStyleRange({this.offset, this.length, this.style});
 
   static List<_InlineStyleRange> getList(List<dynamic> map) {
@@ -63,6 +69,15 @@ class _InlineStyleRange {
           style: map["style"]);
 }
 
+class _Data {
+  String text_align;
+
+  _Data({this.text_align});
+
+  factory _Data.fromJson(Map<String, dynamic> map) =>
+      _Data(text_align: map["text-align"]);
+}
+
 class _EntityRange {
   int offset;
   int length;
@@ -70,12 +85,13 @@ class _EntityRange {
 
   _EntityRange({this.offset, this.length, this.key});
 
-  bool contains(int index){
-    if((offset<=index) && (index<(offset+length))) {
+  bool contains(int index) {
+    if ((offset <= index) && (index < (offset + length))) {
       return true;
     }
     return false;
   }
+
   factory _EntityRange.fromJson(Map<String, dynamic> map) => _EntityRange(
       offset: map["offset"] ?? 0,
       length: map["length"] ?? 0,

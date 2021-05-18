@@ -32,6 +32,7 @@ class DraftJSFlutter extends StatelessWidget {
     FontStyle textFontStyle;
     TextDecoration decoration;
     TapGestureRecognizer recognizer;
+    Alignment textAlign = Alignment.centerLeft;
     if (map != null) {
       print(map);
       DraftJsObject draftJsObject = DraftJsObject.fromJson(map);
@@ -98,6 +99,21 @@ class DraftJSFlutter extends StatelessWidget {
             // }
           }
 
+          switch (draftJsObject.blocks[blockIndex].data.text_align) {
+            case "left":
+              textAlign = Alignment.centerLeft;
+              break;
+            case "right":
+              textAlign = Alignment.centerRight;
+              break;
+            case "center":
+              textAlign = Alignment.center;
+              break;
+            default:
+              textAlign = Alignment.centerLeft;
+          }
+
+          // }
           // if (draftJsObject.blocks[blockIndex].type ==
           //         "unordered-list-item" &&
           //     currentIndex != blockIndex) {
@@ -150,6 +166,7 @@ class DraftJSFlutter extends StatelessWidget {
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
             list.add(Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
                   flex: 1,
@@ -187,16 +204,19 @@ class DraftJSFlutter extends StatelessWidget {
             ));
           } else {
             list.add(
-              RichText(
-                text: TextSpan(
-                  text: text,
-                  recognizer: recognizer,
-                  style: TextStyle(
-                      fontSize: fontSize,
-                      color: textColor,
-                      fontStyle: textFontStyle,
-                      fontWeight: textFontWeight,
-                      decoration: decoration),
+              Align(
+                alignment: textAlign,
+                child: RichText(
+                  text: TextSpan(
+                    text: text,
+                    recognizer: recognizer,
+                    style: TextStyle(
+                        fontSize: fontSize,
+                        color: textColor,
+                        fontStyle: textFontStyle,
+                        fontWeight: textFontWeight,
+                        decoration: decoration),
+                  ),
                 ),
               ),
             );
