@@ -24,10 +24,10 @@ class DraftJSFlutter extends StatelessWidget {
     }
   }
 
-  List<TextSpan> getTextSpans() {
-    List<TextSpan> list = List();
-    final brightness = MediaQueryData.fromWindow(WidgetsBinding.instance.window)
-        .platformBrightness;
+  List<Widget> getTextSpans() {
+    List<Widget> list = List();
+    List<Widget> bulletList = List();
+
     if (map != null) {
       print(map);
       DraftJsObject draftJsObject = DraftJsObject.fromJson(map);
@@ -95,37 +95,59 @@ class DraftJSFlutter extends StatelessWidget {
             if (draftJsObject.blocks[blockIndex].type ==
                     "unordered-list-item" &&
                 currentIndex != blockIndex) {
-              list.add(TextSpan(
-                text: "• ",
-                recognizer: recognizer,
-                style: TextStyle(
-                    fontSize: 15.0,
-                    color: textColor,
-                    fontStyle: textFontStyle,
-                    fontWeight: textFontWeight,
-                    decoration: decoration),
-              ));
+              list.add(
+                Row(
+                  children: [
+                    Text(
+                      "• ",
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: textColor,
+                          fontStyle: textFontStyle,
+                          fontWeight: textFontWeight,
+                          decoration: decoration),
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: "• ",
+                        recognizer: recognizer,
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: textColor,
+                            fontStyle: textFontStyle,
+                            fontWeight: textFontWeight,
+                            decoration: decoration),
+                      ),
+                    ),
+                  ],
+                ),
+              );
               currentIndex = blockIndex;
             }
             list.add(
-              TextSpan(
-                text: String.fromCharCode(draftJsObject
-                    .blocks[blockIndex].text.runes
-                    .toList()[textIndex]),
-                recognizer: recognizer,
-                style: TextStyle(
-                    fontSize: fontSize,
-                    color: textColor,
-                    fontStyle: textFontStyle,
-                    fontWeight: textFontWeight,
-                    decoration: decoration),
+              RichText(
+                text: TextSpan(
+                  text: String.fromCharCode(draftJsObject
+                      .blocks[blockIndex].text.runes
+                      .toList()[textIndex]),
+                  recognizer: recognizer,
+                  style: TextStyle(
+                      fontSize: fontSize,
+                      color: textColor,
+                      fontStyle: textFontStyle,
+                      fontWeight: textFontWeight,
+                      decoration: decoration),
+                ),
               ),
             );
           }
 
-          list.add(TextSpan(
-            text: " \n",
-          ));
+          list.add(
+            RichText(
+                text: TextSpan(
+              text: " \n",
+            )),
+          );
         }
       }
     }
@@ -135,6 +157,13 @@ class DraftJSFlutter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(text: TextSpan(children: []..addAll(getTextSpans())));
+    final widgets = getTextSpans();
+    return ListView.builder(
+      itemCount: widgets.length,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return widgets[index];
+      },
+    );
   }
 }
