@@ -26,8 +26,12 @@ class DraftJSFlutter extends StatelessWidget {
 
   List<Widget> getTextSpans() {
     List<Widget> list = List();
-    List<Widget> bulletList = List();
-
+    List<TextSpan> temporary = List();
+    Color textColor = color;
+    FontWeight textFontWeight;
+    FontStyle textFontStyle;
+    TextDecoration decoration;
+    TapGestureRecognizer recognizer;
     if (map != null) {
       print(map);
       DraftJsObject draftJsObject = DraftJsObject.fromJson(map);
@@ -36,17 +40,18 @@ class DraftJSFlutter extends StatelessWidget {
         for (int blockIndex = 0;
             blockIndex < draftJsObject.blocks.length;
             blockIndex++) {
+          String text = draftJsObject.blocks[blockIndex].text;
           int textLength = draftJsObject.blocks[blockIndex].text != null
               ? draftJsObject.blocks[blockIndex].text.runes.length
               : 0;
 
           for (int textIndex = 0; textIndex < textLength; textIndex++) {
             print('TextIndex: ' + textIndex.toString());
-            Color textColor = color;
-            FontWeight textFontWeight = FontWeight.w400;
-            FontStyle textFontStyle = FontStyle.normal;
-            TextDecoration decoration = TextDecoration.none;
-            TapGestureRecognizer recognizer;
+            textColor = color;
+            textFontWeight = FontWeight.w400;
+            textFontStyle = FontStyle.normal;
+            decoration = TextDecoration.none;
+
             for (int inlineStyleIndex = 0;
                 inlineStyleIndex <
                     draftJsObject.blocks[blockIndex].inlineStyleRanges.length;
@@ -92,44 +97,87 @@ class DraftJSFlutter extends StatelessWidget {
               }
             }
 
-            if (draftJsObject.blocks[blockIndex].type ==
-                    "unordered-list-item" &&
-                currentIndex != blockIndex) {
-              list.add(
-                Row(
-                  children: [
-                    Text(
-                      "• ",
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: textColor,
-                          fontStyle: textFontStyle,
-                          fontWeight: textFontWeight,
-                          decoration: decoration),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: "• ",
-                        recognizer: recognizer,
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            color: textColor,
-                            fontStyle: textFontStyle,
-                            fontWeight: textFontWeight,
-                            decoration: decoration),
-                      ),
-                    ),
-                  ],
+            // if (draftJsObject.blocks[blockIndex].type ==
+            //         "unordered-list-item" &&
+            //     currentIndex != blockIndex) {
+            //   list.add(
+            //     Row(
+            //       children: [
+            //         Text(
+            //           "• ",
+            //           style: TextStyle(
+            //               fontSize: 15.0,
+            //               color: textColor,
+            //               fontStyle: textFontStyle,
+            //               fontWeight: textFontWeight,
+            //               decoration: decoration),
+            //         ),
+            //         RichText(
+            //           text: TextSpan(
+            //             text: "• ",
+            //             recognizer: recognizer,
+            //             style: TextStyle(
+            //                 fontSize: 15.0,
+            //                 color: textColor,
+            //                 fontStyle: textFontStyle,
+            //                 fontWeight: textFontWeight,
+            //                 decoration: decoration),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   );
+            //   currentIndex = blockIndex;
+            // }
+            // list.add(
+            //   RichText(
+            //     text: TextSpan(
+            //       text: String.fromCharCode(draftJsObject
+            //           .blocks[blockIndex].text.runes
+            //           .toList()[textIndex]),
+            //       recognizer: recognizer,
+            //       style: TextStyle(
+            //           fontSize: fontSize,
+            //           color: textColor,
+            //           fontStyle: textFontStyle,
+            //           fontWeight: textFontWeight,
+            //           decoration: decoration),
+            //     ),
+            //   ),
+            // );
+          }
+          if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
+              currentIndex != blockIndex) {
+            list.add(Row(
+              children: [
+                Text(
+                  "• ",
+                  style: TextStyle(
+                      fontSize: 15.0,
+                      color: textColor,
+                      fontStyle: textFontStyle,
+                      fontWeight: textFontWeight,
+                      decoration: decoration),
                 ),
-              );
-              currentIndex = blockIndex;
-            }
+                RichText(
+                  text: TextSpan(
+                    text: text,
+                    recognizer: recognizer,
+                    style: TextStyle(
+                        fontSize: fontSize,
+                        color: textColor,
+                        fontStyle: textFontStyle,
+                        fontWeight: textFontWeight,
+                        decoration: decoration),
+                  ),
+                ),
+              ],
+            ));
+          } else {
             list.add(
               RichText(
                 text: TextSpan(
-                  text: String.fromCharCode(draftJsObject
-                      .blocks[blockIndex].text.runes
-                      .toList()[textIndex]),
+                  text: text,
                   recognizer: recognizer,
                   style: TextStyle(
                       fontSize: fontSize,
@@ -158,12 +206,8 @@ class DraftJSFlutter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widgets = getTextSpans();
-    return ListView.builder(
-      itemCount: widgets.length,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return widgets[index];
-      },
+    return Column(
+      children: widgets,
     );
   }
 }
