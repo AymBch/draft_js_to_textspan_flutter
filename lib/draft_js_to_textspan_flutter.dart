@@ -98,19 +98,22 @@ class DraftJSFlutter extends StatelessWidget {
               };
             // }
           }
-
-          switch (draftJsObject.blocks[blockIndex].data.text_align) {
-            case "left":
-              textAlign = Alignment.centerLeft;
-              break;
-            case "right":
-              textAlign = Alignment.centerRight;
-              break;
-            case "center":
-              textAlign = Alignment.center;
-              break;
-            default:
-              textAlign = Alignment.centerLeft;
+          if (draftJsObject.blocks[blockIndex].data.text_align != null) {
+            switch (draftJsObject.blocks[blockIndex].data.text_align) {
+              case "left":
+                textAlign = Alignment.centerLeft;
+                break;
+              case "right":
+                textAlign = Alignment.centerRight;
+                break;
+              case "center":
+                textAlign = Alignment.center;
+                break;
+              default:
+                textAlign = Alignment.centerLeft;
+            }
+          } else {
+            textAlign = Alignment.centerLeft;
           }
 
           // }
