@@ -174,7 +174,6 @@ class DraftJSFlutter extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    height: double.infinity,
                     child: Stack(
                       children: [
                         Positioned(
