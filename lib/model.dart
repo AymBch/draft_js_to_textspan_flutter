@@ -36,7 +36,7 @@ class _Block {
         entityRanges: map["entityRanges"] == null
             ? null
             : _EntityRange.getList(map["entityRanges"]),
-        data: _Data.fromJson(map["text-align"]),
+        data: _Data.fromJson(map["data"]),
       );
 }
 
