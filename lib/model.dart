@@ -36,7 +36,7 @@ class _Block {
         entityRanges: map["entityRanges"] == null
             ? null
             : _EntityRange.getList(map["entityRanges"]),
-        data: map["text-align"],
+        data: _Data.fromJson(map["text-align"]),
       );
 }
 
@@ -73,6 +73,8 @@ class _Data {
   String text_align;
 
   _Data({this.text_align});
+
+  _Data getTextAlign(Map<String, dynamic> map) => _Data.fromJson(map);
 
   factory _Data.fromJson(Map<String, dynamic> map) =>
       _Data(text_align: map["text-align"]);

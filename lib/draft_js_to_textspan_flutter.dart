@@ -98,7 +98,7 @@ class DraftJSFlutter extends StatelessWidget {
               };
             // }
           }
-          if (draftJsObject.blocks[blockIndex].data.text_align != null) {
+          if (draftJsObject.blocks[blockIndex]?.data?.text_align != null) {
             switch (draftJsObject.blocks[blockIndex].data.text_align) {
               case "left":
                 textAlign = Alignment.centerLeft;
