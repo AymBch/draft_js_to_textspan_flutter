@@ -168,56 +168,50 @@ class DraftJSFlutter extends StatelessWidget {
           //}
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
-            list.add(Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: LayoutBuilder(
-                          builder: (context, boxConstraints) {
-                            final bottomPadding =
-                                boxConstraints.maxHeight / 2 - 5;
-                            return Container(
-                              child: Padding(
-                                padding: EdgeInsets.only(bottom: bottomPadding),
-                                child: Text(
-                                  "• ",
-                                  style: TextStyle(
-                                      fontSize: 15.0,
-                                      color: textColor,
-                                      fontStyle: textFontStyle,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: decoration),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        flex: 10,
-                        child: RichText(
-                          text: TextSpan(
-                            text: text,
-                            recognizer: recognizer,
-                            style: TextStyle(
-                                fontSize: fontSize,
-                                color: textColor,
-                                fontStyle: textFontStyle,
-                                fontWeight: textFontWeight,
-                                decoration: decoration),
+            list.add(ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 200, minHeight: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: LayoutBuilder(
+                      builder: (context, boxConstraints) {
+                        final bottomPadding = boxConstraints.maxHeight / 2 - 5;
+                        return Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom: bottomPadding),
+                            child: Text(
+                              "• ",
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: textColor,
+                                  fontStyle: textFontStyle,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: decoration),
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 10,
+                    child: RichText(
+                      text: TextSpan(
+                        text: text,
+                        recognizer: recognizer,
+                        style: TextStyle(
+                            fontSize: fontSize,
+                            color: textColor,
+                            fontStyle: textFontStyle,
+                            fontWeight: textFontWeight,
+                            decoration: decoration),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ));
           } else if (text.isNotEmpty) {
             list.add(
