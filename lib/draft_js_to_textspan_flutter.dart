@@ -34,16 +34,16 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
     }
   }
 
-  double _getWidgetHeight(GlobalKey key) {
-    if (subtreeHeight == null) {
-      RenderBox renderBox = key.currentContext.findRenderObject();
-      subtreeHeight = renderBox.size.height;
-    }
-    setState(() {
-      _offstage = false;
-    });
-    return subtreeHeight;
-  }
+  // double _getWidgetHeight(GlobalKey key) {
+  //   if (subtreeHeight == null) {
+  //     RenderBox renderBox = key.currentContext.findRenderObject();
+  //     subtreeHeight = renderBox.size.height;
+  //   }
+  //   setState(() {
+  //     _offstage = false;
+  //   });
+  //   return subtreeHeight;
+  // }
 
   List<Widget> getTextSpans(BuildContext context) {
     List<Widget> list = List();
@@ -63,7 +63,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
             blockIndex < draftJsObject.blocks.length;
             blockIndex++) {
           String text = draftJsObject.blocks[blockIndex].text;
-          GlobalKey key = GlobalKey();
+          // GlobalKey key = GlobalKey();
           // int textLength = draftJsObject.blocks[blockIndex].text != null
           //     ? draftJsObject.blocks[blockIndex].text.runes.length
           //     : 0;
@@ -190,54 +190,29 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
           //}
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
-            list.add(Flexible(
-              fit: FlexFit.tight,
-              child: Offstage(
-                offstage: _offstage,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      key: key,
-                      flex: 1,
-                      child: LayoutBuilder(
-                        builder: (context, size) {
-                          final padding = _getWidgetHeight(key);
-                          // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
-                          return Container(
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: padding),
-                              child: Text(
-                                "• ",
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    color: textColor,
-                                    fontStyle: textFontStyle,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: decoration),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      flex: 10,
-                      child: RichText(
-                        text: TextSpan(
-                          text: text,
-                          recognizer: recognizer,
-                          style: TextStyle(
-                            fontSize: widget.fontSize,
-                            color: textColor,
-                            fontStyle: textFontStyle,
-                            fontWeight: textFontWeight,
-                            decoration: decoration,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+            list.add(ListTile(
+              leading: Container(
+                child: Text(
+                  "• ",
+                  style: TextStyle(
+                      fontSize: 15.0,
+                      color: textColor,
+                      fontStyle: textFontStyle,
+                      fontWeight: FontWeight.bold,
+                      decoration: decoration),
+                ),
+              ),
+              title: RichText(
+                text: TextSpan(
+                  text: text,
+                  recognizer: recognizer,
+                  style: TextStyle(
+                    fontSize: widget.fontSize,
+                    color: textColor,
+                    fontStyle: textFontStyle,
+                    fontWeight: textFontWeight,
+                    decoration: decoration,
+                  ),
                 ),
               ),
             ));
