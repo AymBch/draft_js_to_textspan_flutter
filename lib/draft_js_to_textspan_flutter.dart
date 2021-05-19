@@ -34,7 +34,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
     }
   }
 
-  void _getWidgetHeight(GlobalKey key) {
+  double _getWidgetHeight(GlobalKey key) {
     if (subtreeHeight == null) {
       RenderBox renderBox = key.currentContext.findRenderObject();
       subtreeHeight = renderBox.size.height;
@@ -42,6 +42,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
     setState(() {
       _offstage = false;
     });
+    return subtreeHeight;
   }
 
   List<Widget> getTextSpans(BuildContext context) {
@@ -199,11 +200,11 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                     flex: 1,
                     child: LayoutBuilder(
                       builder: (context, size) {
-                        _getWidgetHeight(key);
                         // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
                         return Container(
                           child: Padding(
-                            padding: EdgeInsets.only(bottom: subtreeHeight),
+                            padding:
+                                EdgeInsets.only(bottom: _getWidgetHeight(key)),
                             child: Text(
                               "• ",
                               style: TextStyle(
