@@ -189,6 +189,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
             list.add(Offstage(
+              offstage: _offstage,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -198,6 +199,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                       builder: (context, size) {
                         // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
                         return Container(
+                          key: _key,
                           child: Padding(
                             padding:
                                 EdgeInsets.only(bottom: subtreeHeight - 10),
