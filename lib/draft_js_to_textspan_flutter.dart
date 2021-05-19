@@ -23,7 +23,7 @@ class DraftJSFlutter extends StatefulWidget {
 
 class _DraftJSFlutterState extends State<DraftJSFlutter> {
   double subtreeHeight;
-  final GlobalKey key = GlobalKey();
+
   bool _offstage = true;
 
   _launchURL(String link) async {
@@ -34,7 +34,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
     }
   }
 
-  void _getWidgetHeight() {
+  void _getWidgetHeight(GlobalKey key) {
     if (subtreeHeight == null) {
       RenderBox renderBox = key.currentContext.findRenderObject();
       subtreeHeight = renderBox.size.height;
@@ -62,6 +62,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
             blockIndex < draftJsObject.blocks.length;
             blockIndex++) {
           String text = draftJsObject.blocks[blockIndex].text;
+          GlobalKey key = GlobalKey();
           // int textLength = draftJsObject.blocks[blockIndex].text != null
           //     ? draftJsObject.blocks[blockIndex].text.runes.length
           //     : 0;
@@ -188,6 +189,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
           //}
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
+            _getWidgetHeight(key);
             list.add(Offstage(
               offstage: _offstage,
               child: Row(
@@ -201,7 +203,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                         // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
                         return Container(
                           child: Padding(
-                            padding: EdgeInsets.only(bottom: 50),
+                            padding: EdgeInsets.only(bottom: subtreeHeight),
                             child: Text(
                               "• ",
                               style: TextStyle(
