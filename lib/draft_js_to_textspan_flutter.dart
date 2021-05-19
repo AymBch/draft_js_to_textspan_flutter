@@ -23,7 +23,7 @@ class DraftJSFlutter extends StatefulWidget {
 
 class _DraftJSFlutterState extends State<DraftJSFlutter> {
   double subtreeHeight;
-  final GlobalKey _key = GlobalKey();
+  final GlobalKey key = GlobalKey();
   bool _offstage = true;
 
   _launchURL(String link) async {
@@ -36,7 +36,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
 
   void _getWidgetHeight() {
     if (subtreeHeight == null) {
-      RenderBox renderBox = _key.currentContext.findRenderObject();
+      RenderBox renderBox = key.currentContext.findRenderObject();
       subtreeHeight = renderBox.size.height;
     }
     setState(() {
@@ -191,10 +191,10 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
             list.add(Offstage(
               offstage: _offstage,
               child: Row(
-                key: _key,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
+                    key: key,
                     flex: 1,
                     child: LayoutBuilder(
                       builder: (context, size) {
@@ -223,11 +223,12 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                         text: text,
                         recognizer: recognizer,
                         style: TextStyle(
-                            fontSize: widget.fontSize,
-                            color: textColor,
-                            fontStyle: textFontStyle,
-                            fontWeight: textFontWeight,
-                            decoration: decoration),
+                          fontSize: widget.fontSize,
+                          color: textColor,
+                          fontStyle: textFontStyle,
+                          fontWeight: textFontWeight,
+                          decoration: decoration,
+                        ),
                       ),
                     ),
                   ),
