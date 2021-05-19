@@ -11,6 +11,12 @@ class DraftJSFlutter extends StatefulWidget {
   Color color;
   DraftJSFlutter(this.map, this.fontSize, this.color);
 
+  Color get getColor => color;
+
+  set setColor(Color color) {
+    this.color = color;
+  }
+
   @override
   _DraftJSFlutterState createState() => _DraftJSFlutterState();
 }
@@ -19,12 +25,6 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
   double subtreeHeight;
   final GlobalKey _key = GlobalKey();
   bool _offstage = true;
-
-  Color get getColor => widget.color;
-
-  set setColor(Color color) {
-    this.widget.color = color;
-  }
 
   _launchURL(String link) async {
     if (await canLaunch(link)) {
