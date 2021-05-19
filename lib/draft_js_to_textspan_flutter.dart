@@ -173,13 +173,12 @@ class DraftJSFlutter extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 1,
-                  child: Container(
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          left: 0,
+                  child: LayoutBuilder(
+                    builder: (context, boxConstraints) {
+                      final bottomPadding = boxConstraints.maxHeight / 2 - 5;
+                      return Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: bottomPadding),
                           child: Text(
                             "• ",
                             style: TextStyle(
@@ -190,8 +189,8 @@ class DraftJSFlutter extends StatelessWidget {
                                 decoration: decoration),
                           ),
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ),
                 Expanded(
@@ -211,7 +210,7 @@ class DraftJSFlutter extends StatelessWidget {
                 ),
               ],
             ));
-          } else {
+          } else if (text.isNotEmpty) {
             list.add(
               Align(
                 alignment: textAlign,
@@ -229,6 +228,10 @@ class DraftJSFlutter extends StatelessWidget {
                 ),
               ),
             );
+          } else {
+            list.add(SizedBox(
+              height: 10,
+            ));
           }
 
           list.add(
