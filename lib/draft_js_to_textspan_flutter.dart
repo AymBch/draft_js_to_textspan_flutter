@@ -203,7 +203,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                       decoration: decoration),
                 ),
               ),
-              subtitle: RichText(
+              title: RichText(
                 text: TextSpan(
                   text: text,
                   recognizer: recognizer,
