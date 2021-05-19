@@ -191,7 +191,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
             list.add(Flexible(
-              fit: FlexFit.loose,
+              fit: FlexFit.tight,
               child: Offstage(
                 offstage: _offstage,
                 child: Row(
