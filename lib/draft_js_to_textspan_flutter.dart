@@ -189,7 +189,6 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
           //}
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
-            _getWidgetHeight(key);
             list.add(Offstage(
               offstage: _offstage,
               child: Row(
@@ -200,6 +199,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                     flex: 1,
                     child: LayoutBuilder(
                       builder: (context, size) {
+                        _getWidgetHeight(key);
                         // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
                         return Container(
                           child: Padding(
