@@ -200,11 +200,11 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                     flex: 1,
                     child: LayoutBuilder(
                       builder: (context, size) {
+                        final padding = _getWidgetHeight(key);
                         // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
                         return Container(
                           child: Padding(
-                            padding:
-                                EdgeInsets.only(bottom: _getWidgetHeight(key)),
+                            padding: EdgeInsets.only(bottom: padding),
                             child: Text(
                               "• ",
                               style: TextStyle(
