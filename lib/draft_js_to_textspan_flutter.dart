@@ -191,6 +191,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
             list.add(ListTile(
+              contentPadding: const EdgeInsets.all(0.0),
               leading: Container(
                 child: Text(
                   "• ",
@@ -202,7 +203,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                       decoration: decoration),
                 ),
               ),
-              title: RichText(
+              subtitle: RichText(
                 text: TextSpan(
                   text: text,
                   recognizer: recognizer,
