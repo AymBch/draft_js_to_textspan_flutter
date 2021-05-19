@@ -190,52 +190,54 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
           //}
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
-            list.add(Offstage(
-              offstage: _offstage,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    key: key,
-                    flex: 1,
-                    child: LayoutBuilder(
-                      builder: (context, size) {
-                        final padding = _getWidgetHeight(key);
-                        // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
-                        return Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: padding),
-                            child: Text(
-                              "• ",
-                              style: TextStyle(
-                                  fontSize: 15.0,
-                                  color: textColor,
-                                  fontStyle: textFontStyle,
-                                  fontWeight: FontWeight.bold,
-                                  decoration: decoration),
+            list.add(Flexible(
+              child: Offstage(
+                offstage: _offstage,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      key: key,
+                      flex: 1,
+                      child: LayoutBuilder(
+                        builder: (context, size) {
+                          final padding = _getWidgetHeight(key);
+                          // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
+                          return Container(
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: padding),
+                              child: Text(
+                                "• ",
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    color: textColor,
+                                    fontStyle: textFontStyle,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: decoration),
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 10,
-                    child: RichText(
-                      text: TextSpan(
-                        text: text,
-                        recognizer: recognizer,
-                        style: TextStyle(
-                          fontSize: widget.fontSize,
-                          color: textColor,
-                          fontStyle: textFontStyle,
-                          fontWeight: textFontWeight,
-                          decoration: decoration,
+                    Expanded(
+                      flex: 10,
+                      child: RichText(
+                        text: TextSpan(
+                          text: text,
+                          recognizer: recognizer,
+                          style: TextStyle(
+                            fontSize: widget.fontSize,
+                            color: textColor,
+                            fontStyle: textFontStyle,
+                            fontWeight: textFontWeight,
+                            decoration: decoration,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ));
           } else if (text.isNotEmpty) {
