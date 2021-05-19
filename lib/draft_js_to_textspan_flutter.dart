@@ -191,6 +191,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
             list.add(Offstage(
               offstage: _offstage,
               child: Row(
+                key: _key,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
@@ -199,10 +200,8 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                       builder: (context, size) {
                         // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
                         return Container(
-                          key: _key,
                           child: Padding(
-                            padding:
-                                EdgeInsets.only(bottom: subtreeHeight - 10),
+                            padding: EdgeInsets.only(bottom: 50),
                             child: Text(
                               "• ",
                               style: TextStyle(
