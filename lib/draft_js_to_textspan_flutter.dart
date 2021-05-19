@@ -5,15 +5,25 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DraftJSFlutter extends StatelessWidget {
+class DraftJSFlutter extends StatefulWidget {
   final Map<String, dynamic> map;
   final double fontSize;
   Color color;
   DraftJSFlutter(this.map, this.fontSize, this.color);
 
-  Color get getColor => color;
+  @override
+  _DraftJSFlutterState createState() => _DraftJSFlutterState();
+}
+
+class _DraftJSFlutterState extends State<DraftJSFlutter> {
+  double subtreeHeight;
+  final GlobalKey _key = GlobalKey();
+  bool _offstage = true;
+
+  Color get getColor => widget.color;
+
   set setColor(Color color) {
-    this.color = color;
+    this.widget.color = color;
   }
 
   _launchURL(String link) async {
@@ -24,18 +34,28 @@ class DraftJSFlutter extends StatelessWidget {
     }
   }
 
-  List<Widget> getTextSpans() {
+  void _getWidgetHeight() {
+    if (subtreeHeight == null) {
+      RenderBox renderBox = _key.currentContext.findRenderObject();
+      subtreeHeight = renderBox.size.height;
+    }
+    setState(() {
+      _offstage = false;
+    });
+  }
+
+  List<Widget> getTextSpans(BuildContext context) {
     List<Widget> list = List();
     List<TextSpan> temporary = List();
-    Color textColor = color;
+    Color textColor = widget.color;
     FontWeight textFontWeight;
     FontStyle textFontStyle;
     TextDecoration decoration;
     TapGestureRecognizer recognizer;
     Alignment textAlign = Alignment.centerLeft;
-    if (map != null) {
-      print(map);
-      DraftJsObject draftJsObject = DraftJsObject.fromJson(map);
+    if (widget.map != null) {
+      print(widget.map);
+      DraftJsObject draftJsObject = DraftJsObject.fromJson(widget.map);
       int currentIndex = 0;
       if (draftJsObject != null && draftJsObject.blocks != null) {
         for (int blockIndex = 0;
@@ -48,7 +68,7 @@ class DraftJSFlutter extends StatelessWidget {
 
           // for (int textIndex = 0; textIndex < textLength; textIndex++) {
           //   print('TextIndex: ' + textIndex.toString());
-          textColor = color;
+          textColor = widget.color;
           textFontWeight = FontWeight.w400;
           textFontStyle = FontStyle.normal;
           decoration = TextDecoration.none;
@@ -168,19 +188,19 @@ class DraftJSFlutter extends StatelessWidget {
           //}
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
-            list.add(ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 200, minHeight: 30),
+            list.add(Offstage(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
                     flex: 1,
                     child: LayoutBuilder(
-                      builder: (context, boxConstraints) {
-                        final bottomPadding = boxConstraints.maxHeight / 2 - 5;
+                      builder: (context, size) {
+                        // final bottomPadding = boxConstraints.maxHeight / 2 - 5;
                         return Container(
                           child: Padding(
-                            padding: EdgeInsets.only(bottom: bottomPadding),
+                            padding:
+                                EdgeInsets.only(bottom: subtreeHeight - 10),
                             child: Text(
                               "• ",
                               style: TextStyle(
@@ -202,7 +222,7 @@ class DraftJSFlutter extends StatelessWidget {
                         text: text,
                         recognizer: recognizer,
                         style: TextStyle(
-                            fontSize: fontSize,
+                            fontSize: widget.fontSize,
                             color: textColor,
                             fontStyle: textFontStyle,
                             fontWeight: textFontWeight,
@@ -222,7 +242,7 @@ class DraftJSFlutter extends StatelessWidget {
                     text: text,
                     recognizer: recognizer,
                     style: TextStyle(
-                        fontSize: fontSize,
+                        fontSize: widget.fontSize,
                         color: textColor,
                         fontStyle: textFontStyle,
                         fontWeight: textFontWeight,
@@ -232,9 +252,9 @@ class DraftJSFlutter extends StatelessWidget {
               ),
             );
           } else {
-            list.add(SizedBox(
-              height: 10,
-            ));
+            // list.add(SizedBox(
+            //   height: 3,
+            // ));
           }
 
           list.add(
@@ -252,8 +272,9 @@ class DraftJSFlutter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widgets = getTextSpans();
+    final widgets = getTextSpans(context);
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: widgets,
     );
   }
