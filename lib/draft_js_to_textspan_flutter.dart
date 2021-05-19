@@ -172,7 +172,7 @@ class DraftJSFlutter extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Flexible(
-                  fit: FlexFit.loose,
+                  fit: FlexFit.tight,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
