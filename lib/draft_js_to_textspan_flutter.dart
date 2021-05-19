@@ -169,8 +169,9 @@ class DraftJSFlutter extends StatelessWidget {
           if (draftJsObject.blocks[blockIndex].type == "unordered-list-item" &&
               currentIndex != blockIndex) {
             list.add(Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
+                Flexible(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
