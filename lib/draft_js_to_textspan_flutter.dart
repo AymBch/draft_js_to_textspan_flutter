@@ -203,16 +203,19 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                       decoration: decoration),
                 ),
               ),
-              title: RichText(
-                text: TextSpan(
-                  text: text,
-                  recognizer: recognizer,
-                  style: TextStyle(
-                    fontSize: widget.fontSize,
-                    color: textColor,
-                    fontStyle: textFontStyle,
-                    fontWeight: textFontWeight,
-                    decoration: decoration,
+              title: Align(
+                alignment: Alignment(1.2, 0),
+                child: RichText(
+                  text: TextSpan(
+                    text: text,
+                    recognizer: recognizer,
+                    style: TextStyle(
+                      fontSize: widget.fontSize,
+                      color: textColor,
+                      fontStyle: textFontStyle,
+                      fontWeight: textFontWeight,
+                      decoration: decoration,
+                    ),
                   ),
                 ),
               ),
