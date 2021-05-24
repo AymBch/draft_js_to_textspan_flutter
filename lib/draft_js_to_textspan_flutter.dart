@@ -203,8 +203,8 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                       decoration: decoration),
                 ),
               ),
-              title: Align(
-                alignment: Alignment(1.2, 0),
+              title: Transform.translate(
+                offset: Offset(-16, 0),
                 child: RichText(
                   text: TextSpan(
                     text: text,
