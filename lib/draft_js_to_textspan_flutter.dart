@@ -204,7 +204,7 @@ class _DraftJSFlutterState extends State<DraftJSFlutter> {
                 ),
               ),
               title: Transform.translate(
-                offset: Offset(-24, 0),
+                offset: Offset(-32, 0),
                 child: RichText(
                   text: TextSpan(
                     text: text,
